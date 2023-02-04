@@ -1,5 +1,5 @@
 import 'dotenv'
-import { Application, Router, send } from 'oak'
+import { Application, Router, send } from 'oak/mod.ts'
 
 const API_KEY = Deno.env.get('MAP_API_KEY')
 const BASE_URL = 'https://api.maptiler.com'
@@ -18,12 +18,14 @@ const api = new Router()
     ctx.response.body = JSON.stringify(resp)
   })
 
+console.log('listening on http://localhost:8000')
+
 await new Application()
   .use(api.routes())
   .use(async (ctx, next) => {
     try {
       await ctx.send({
-        root: `${Deno.cwd()}/static`,
+        root: `${Deno.cwd()}/maps/static`,
         index: 'index.html',
       })
     } catch {
