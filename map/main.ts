@@ -1,9 +1,5 @@
-import 'https://deno.land/x/dotenv@v3.2.0/load.ts'
-import {
-  Application,
-  Router,
-  send,
-} from 'https://deno.land/x/oak@v10.6.0/mod.ts'
+import 'dotenv'
+import { Application, Router, send } from 'oak'
 
 const API_KEY = Deno.env.get('MAP_API_KEY')
 const BASE_URL = 'https://api.maptiler.com'
@@ -22,14 +18,12 @@ const api = new Router()
     ctx.response.body = JSON.stringify(resp)
   })
 
-console.log('listening on http://localhost:8080')
-
 await new Application()
   .use(api.routes())
   .use(async (ctx, next) => {
     try {
       await ctx.send({
-        root: `${Deno.cwd()}/apps/map/static`,
+        root: `${Deno.cwd()}/static`,
         index: 'index.html',
       })
     } catch {
@@ -38,4 +32,4 @@ await new Application()
     }
   })
   .use(api.allowedMethods())
-  .listen({ port: 8080 })
+  .listen({ port: 8000 })

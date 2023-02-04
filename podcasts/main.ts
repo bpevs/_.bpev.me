@@ -1,5 +1,6 @@
-import 'https://deno.land/x/dotenv/load.ts'
-import { serve } from 'https://deno.land/std@0.137.0/http/server.ts'
+import 'dotenv'
+import { serve } from '$std/http/server.ts'
+
 import type { Channel, Episode, Podcast, Video } from './types.ts'
 
 const env = Deno.env.get
