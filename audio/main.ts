@@ -2,8 +2,6 @@
 import { serve } from '$std/http/server.ts'
 import { dirname, fromFileUrl, join } from '$std/path/mod.ts'
 
-
-
 async function handleRequest(request) {
   const { pathname } = new URL(request.url)
 
